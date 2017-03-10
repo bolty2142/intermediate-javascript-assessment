@@ -12,7 +12,18 @@
 // with the animal as the context, and 'Trogdor' as a parameter.
 // return the result of your updateAnimal invocation
 
-// CODE HERE...
+function callBinding(magicAnimals,updateAnimal,id){
+    var animal;
+    for(var i=0;i<magicAnimals.length;i++) {
+        if (magicAnimals[i].id === id) {
+            animal = magicAnimals[i];
+             updateAnimal.call(animal, "Trogdor")
+
+        }
+    }
+    return animal
+
+}
 
 
 // *************
@@ -26,7 +37,17 @@
 // with the context of the animal, and the array ['being majestic', 'eating rainbows'] as a parameter.
 // return the result of your updateAnimal invocation
 
-// CODE HERE...
+function applyBinding(magicAnimal,updateAnimal,id){
+
+    var animal;
+    for(var i = 0;i<magicAnimal.length;i++){
+        if(magicAnimal[i].id === id){
+            animal = magicAnimal[i];
+           updateAnimal.apply(animal,['being majestic', 'eating rainbows'])
+        }
+    }
+    return animal
+}
 
 // *************
 // * PROBLEM 3 *
@@ -43,7 +64,18 @@
 // NOTE: Manually invoking your function here will alter the 'foo' variable before tests run, causing them to fail.
 
 var foo;
-// CODE HERE...
+function promiseMe($q){
+
+    return $q(function() {
+        setTimeout(function () {
+            foo="bar"
+        },20);
+    }).then(function(){
+        foo = "bar"
+        return foo
+    })
+}
+
 
 
 // *************
@@ -58,4 +90,16 @@ var foo;
 // Make an array of emails (array of strings) from the returned data (You will need to console log or debug to figure this out),
 // and then pass the array as you complete your promise.
 
-// CODE HERE...
+function emailList($q, $http){
+    return $http({
+        method:"GET",
+        url:'/api/users'
+    }).then(function(res){
+        var newArr = [];
+        for(var i=0;i<res.data.length;i++){
+            newArr.push(res.data[i].email)
+        }
+        return newArr
+
+    })
+}
